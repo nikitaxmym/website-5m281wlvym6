@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Clinton Oh</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #ffffff 0%, #f7fafc 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            box-shadow: 0 4px 20px rgba(26, 54, 93, 0.15);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            background: linear-gradient(45deg, #f6ad55, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f6ad55, #2b6cb0);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            left: 0;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(246, 173, 85, 0.3);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #ffffff;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        main {
+            margin-top: 100px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .gallery-hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(43, 108, 176, 0.05) 100%);
+            margin-bottom: 4rem;
+        }
+
+        .gallery-hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
+        }
+
+        .gallery-hero p {
+            font-size: 1.3rem;
+            color: #666;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .gallery-item {
+            background: #ffffff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 54, 93, 0.9) 0%, rgba(43, 108, 176, 0.9) 100%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-overlay h3 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.1s;
+        }
+
+        .gallery-overlay p {
+            color: #f6ad55;
+            font-size: 1.1rem;
+            transform: translateY(20px);
+            transition: transform 0.4s ease 0.2s;
+        }
+
+        .gallery-item:hover .gallery-overlay h3,
+        .gallery-item:hover .gallery-overlay p {
+            transform: translateY(0);
+        }
+
+        .featured-section {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: #ffffff;
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(246, 173, 85, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .featured-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #f6ad55;
+        }
+
+        .featured-text p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .featured-image {
+            text-align: center;
+        }
+
+        .featured-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .featured-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .achievement-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            border-color: #f6ad55;
+            box-shadow: 0 15px 40px rgba(246, 173, 85, 0.2);
+        }
+
+        .achievement-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2b6cb0 0%, #f6ad55 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: #ffffff;
+        }
+
+        .achievement-card h3 {
+            font-size: 1.5rem;
+            color: #1a365d;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            color: #ffffff;
+            text-align: center;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #f6ad55;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #f6ad55;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .featured-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .gallery-hero {
+                padding: 2rem 0;
+            }
+
+            .gallery-hero h1 {
+                font-size: 2rem;
+            }
+
+            .gallery-hero p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">Clinton Oh</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Clinton</a>
+                <a href="coaching.html" class="nav-link">Coaching Programs</a>
+                <a href="franchising.html" class="nav-link">Franchising Services</a>
+                <a href="mymanager.html" class="nav-link">MyManager CRM</a>
+                <a href="gallery.html" class="nav-link active">Gallery</a>
+                <a href="blog.html" class="nav-link">Blog</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="gallery-hero">
+            <div class="container">
+                <h1>Success Stories Gallery</h1>
+                <p>Witness the journey of transformation and growth through strategic excellence</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/clinton-1920w.png" alt="Clinton Oh - Strategic Leadership">
+                    <div class="gallery-overlay">
+                        <h3>Strategic Leadership</h3>
+                        <p>Leading multiple franchise companies to unprecedented success</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/clinton2-1920w.png" alt="Clinton Oh - Business Innovation">
+                    <div class="gallery-overlay">
+                        <h3>Business Innovation</h3>
+                        <p>Revolutionizing operations through modern technology solutions</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/Family-977w.jpg" alt="Clinton Oh - Family Values">
+                    <div class="gallery-overlay">
+                        <h3>Family Values</h3>
+                        <p>Building success while maintaining strong family foundations</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/nextlevelwhite-192w.png" alt="Next Level Media">
+                    <div class="gallery-overlay">
+                        <h3>Next Level Media</h3>
+                        <p>Leveraging cutting-edge technology for business transformation</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/arrows-190w.png" alt="Growth Trajectory">
+                    <div class="gallery-overlay">
+                        <h3>Upward Growth</h3>
+                        <p>Consistent trajectory of success across all ventures</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Franchise Success">
+                    <div class="gallery-overlay">
+                        <h3>Franchise Excellence</h3>
+                        <p>Preparing businesses for successful franchise expansion</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-section">
+            <div class="container">
+                <div class="featured-content">
+                    <div class="featured-text">
+                        <h2>Transforming Dreams Into Reality</h2>
+                        <p>Through strategic growth and innovative solutions, Clinton Oh has helped countless entrepreneurs and businesses achieve their dreams. From franchise development to personal coaching, every success story represents a dream transformed into reality.</p>
+                        <p>With Next Level Media's cutting-edge technology and the Be Aligned coaching program, businesses experience unprecedented growth and efficiency.</p>
+                    </div>
+                    <div class="featured-image">
+                        <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/clinton-1920w.png" alt="Clinton Oh - Success Coach">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon">🏢</div>
+                    <h3>Multiple Franchises</h3>
+                    <p>Successfully managing and growing multiple franchise companies across various industries</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">💡</div>
+                    <h3>Technology Innovation</h3>
+                    <p>Revolutionizing business operations through Next Level Media's modern technology solutions</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">🎯</div>
+                    <h3>Be Aligned Coaching</h3>
+                    <p>Custom coaching program delivering unparalleled results in personal and business success</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">💼</div>
+                    <h3>MyManager CRM</h3>
+                    <p>Groundbreaking CRM and marketing tool empowering businesses to achieve their goals efficiently</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">❤️</div>
+                    <h3>Operation Child Rescue</h3>
+                    <p>Committed philanthropist supporting children worldwide through nonprofit initiatives</p>
+                </div>
+
+                <div class="achievement-card">
+                    <div class="achievement-icon">🚀</div>
+                    <h3>Franchise Ready</h3>
+                    <p>Preparing businesses and brands for successful franchise expansion and growth</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Clinton Oh</h3>
+                    <p>Transforming Dreams Into Reality Through Strategic Growth</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <p><a href="coaching.html">Personal Coaching</a></p>
+                    <p><a href="franchising.html">Franchise Development</a></p>
+                    <p><a href="mymanager.html">CRM Solutions</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Ready to elevate your business?</p>
+                    <p><a href="contact.html">Get in touch today</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Clinton Oh. All rights reserved. | Transforming Dreams Into Reality Through Strategic Growth</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
