@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Clinton Oh - Transforming Dreams Into Reality</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #f6ad55;
+            --background: #ffffff;
+            --text: #2d3748;
+            --gradient-primary: linear-gradient(135deg, #1a365d 0%, #2b6cb0 100%);
+            --gradient-accent: linear-gradient(135deg, #f6ad55 0%, #ff8a00 100%);
+            --shadow-soft: 0 10px 40px rgba(26, 54, 93, 0.1);
+            --shadow-medium: 0 20px 60px rgba(26, 54, 93, 0.15);
+            --shadow-strong: 0 30px 80px rgba(26, 54, 93, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(26, 54, 93, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary);
+            background: rgba(26, 54, 93, 0.05);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+            background: rgba(26, 54, 93, 0.1);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 120px 0 80px;
+            background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(246, 173, 85, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(0deg) translateY(0px); }
+            50% { transform: rotate(10deg) translateY(-20px); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-tagline {
+            font-size: 1.4rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text);
+            margin-bottom: 2.5rem;
+            opacity: 0.8;
+        }
+
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow-strong);
+            transition: all 0.6s ease;
+        }
+
+        .hero-image:hover img {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .floating-element {
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            animation: bounce 3s ease-in-out infinite;
+            box-shadow: var(--shadow-medium);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* About Content */
+        .about-content {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, var(--accent) 0%, transparent 100%);
+            background-size: 100% 40%;
+            background-repeat: no-repeat;
+            background-position: 0 90%;
+            padding: 2px 4px;
+            font-weight: 600;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            background: linear-gradient(145deg, #ffffff 0%, #f8faff 100%);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Ventures Section */
+        .ventures-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8faff 0%, #ffffff 100%);
+        }
+
+        .ventures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .venture-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .venture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .venture-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .venture-card:hover::before {
+            opacity: 0.03;
+        }
+
+        .venture-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-accent);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .venture-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .venture-description {
+            color: var(--text);
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+
+        /* Call to Action */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--gradient-primary);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .ventures-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Clinton Oh</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="about.html" class="nav-link active">About Clinton</a></li>
+                <li><a href="coaching.html" class="nav-link">Coaching Programs</a></li>
+                <li><a href="franchising.html" class="nav-link">Franchising Services</a></li>
+                <li><a href="mymanager.html" class="nav-link">MyManager CRM</a></li>
+                <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+                <li><a href="blog.html" class="nav-link">Blog</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text fade-in">
+                        <div class="hero-tagline">Transforming Dreams Into Reality Through Strategic Growth</div>
+                        <h1>Meet Clinton Oh</h1>
+                        <p class="hero-description">A visionary entrepreneur, CEO of multiple franchise companies, and the driving force behind revolutionary business solutions that empower growth and success.</p>
+                    </div>
+                    <div class="hero-image slide-in-right">
+                        <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/clinton2-1920w.png" alt="Clinton Oh">
+                        <div class="floating-element"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Content -->
+        <section class="about-content">
+            <div class="container">
+                <h2 class="section-title fade-in">About Clinton</h2>
+                <div class="about-grid">
+                    <div class="about-text slide-in-left">
+                        <p>Meet Clinton, a <span class="highlight">seasoned entrepreneur</span> and CEO of multiple franchise companies. Through his company, Next Level Media, he leverages modern technology to revolutionize business operations and foster growth.</p>
+                        <p>His personal coaching program, <span class="highlight">Be Aligned</span>, blends vast experience with custom technology for unparalleled results in personal and business success. Renowned for problem-solving, Clinton's extensive network ensures success in overcoming hurdles.</p>
+                        <p>A committed philanthropist, he supports children worldwide through his nonprofit, <span class="highlight">Operation Child Rescue</span>. Clinton's latest venture, mymanager.com, is a groundbreaking CRM and marketing tool engineered to save time and empower businesses of all sizes to achieve their goals efficiently.</p>
+                    </div>
+                    <div class="slide-in-right">
+                        <img src="https://lirp.cdn-website.com/7e69d783/dms3rep/multi/opt/clinton-1920w.png" alt="Clinton Oh Professional" style="width: 100%; border-radius: 15px; box-shadow: var(--shadow-medium);">
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card fade-in">
+                        <div class="stat-number">15+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Franchises Launched</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Businesses Helped</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <div class="stat-number">$50M+</div>
+                        <div class="stat-label">Revenue Generated</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ventures Section -->
+        <section class="ventures-section">
+            <div class="container">
+                <h2 class="section-title fade-in">Key Ventures</h2>
+                <div class="ventures-grid">
+                    <div class="venture-card fade-in">
+                        <div class="venture-icon">🚀</div>
+                        <h3 class="venture-title">Next Level Media</h3>
+                        <p class="venture-description">Leveraging modern technology to revolutionize business operations and foster unprecedented growth for companies across industries.</p>
+                    </div>
+                    <div class="venture-card fade-in">
+                        <div class="venture-icon">🎯</div>
+                        <h3 class="venture-title">Be Aligned Coaching</h3>
+                        <p class="venture-description">A personal coaching program that blends vast experience with custom technology for unparalleled results in personal and business success.</p>
+                    </div>
+                    <div class="venture-card fade-in">
+                        <div class="venture-icon">❤️</div>
+                        <h3 class="venture-title">Operation Child Rescue</h3>
+                        <p class="venture-description">A nonprofit organization dedicated to supporting children worldwide, demonstrating Clinton's commitment to making a positive global impact.</p>
+                    </div>
+                    <div class="venture-card fade-in">
+                        <div class="venture-icon">⚡</div>
+                        <h3 class="venture-title">MyManager CRM</h3>
+                        <p class="venture-description">A groundbreaking CRM and marketing tool engineered to save time and empower businesses of all sizes to achieve their goals efficiently.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content fade-in">
+                    <h2>TURN YOUR NEXT DREAM AND IDEA INTO REALITY</h2>
+                    <p>GET YOUR BUSINESS & BRAND READY FOR FRANCHISING</p>
+                    <div class="cta-buttons">
+                        <a href="coaching.html" class="btn btn-primary">Start Your Journey
